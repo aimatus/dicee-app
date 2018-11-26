@@ -1,20 +1,22 @@
-//
-//  ViewController.swift
-//  dicee
-//
-//  Created by Abraham Matus on 11/26/18.
-//  Copyright © 2018 Abraham Matus. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var leftDiceImageView: UIImageView!
+    @IBOutlet weak var rightDiceImageView: UIImageView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
+    @IBAction func onRollButtonPressed(_ sender: UIButton) {
+        leftDiceImageView.image = getRandomDiceImage()
+        rightDiceImageView.image = getRandomDiceImage()
+    }
 
+    func getRandomDiceImage() -> UIImage? {
+        let randomNumber: Int = Int.random(in: 1 ... 6)
+        let diceImageName: String = "dice\(randomNumber)"
+        return UIImage(named: diceImageName)
+    }
 }
-
