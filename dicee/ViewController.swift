@@ -19,6 +19,7 @@ class ViewController: UIViewController {
 
     @IBAction func onRollButtonPressed(_ sender: UIButton) {
         self.rollButton.isEnabled = false
+        self.rollButton.backgroundColor = UIColor.gray
         self.rollDices()
     }
 
@@ -27,6 +28,7 @@ class ViewController: UIViewController {
             self.generateDicesRollingAnimation()
             DispatchQueue.main.async {
                 self.rollButton.isEnabled = true
+                self.rollButton.backgroundColor = UIColor.init(named: "Salmon")
             }
         }
     }
