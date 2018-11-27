@@ -8,6 +8,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var leftDiceImageView: UIImageView!
     @IBOutlet weak var rightDiceImageView: UIImageView!
+    @IBOutlet weak var rollButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,7 +16,21 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onRollButtonPressed(_ sender: UIButton) {
-        rollDices()
+        let ms = 100000
+        var counter = 1
+        self.rollButton.isEnabled = false
+        DispatchQueue.global(qos: .default).async {
+            for _ in 0...5 {
+                DispatchQueue.main.async {
+                    self.rollDices()
+                }
+                usleep(useconds_t(ms * counter))
+                counter += 1
+            }
+            DispatchQueue.main.async {
+                self.rollButton.isEnabled = true
+            }
+        }
     }
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {

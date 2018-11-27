@@ -53,6 +53,7 @@
                     <connections>
                         <outlet property="leftDiceImageView" destination="IJu-yf-8Ij" id="JVI-L1-t2e"/>
                         <outlet property="rightDiceImageView" destination="4X5-ek-chk" id="7ET-2n-Ao6"/>
+                        <outlet property="rollButton" destination="YxY-Yh-bXS" id="ryi-TC-Sh7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
