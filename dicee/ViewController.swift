@@ -18,6 +18,10 @@ class ViewController: UIViewController {
         rollDices()
     }
 
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        rollDices()
+    }
+
     func rollDices() {
         leftDiceImageView.image = getRandomDiceImage()
         rightDiceImageView.image = getRandomDiceImage()
