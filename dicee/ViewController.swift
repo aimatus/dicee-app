@@ -2,6 +2,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let DICE_IMAGE_NAME_PREFIX: String = "dice"
+    let START_DOMINO_NUMBER: Int = 1
+    let LAST_DOMINO_NUMBER: Int = 6
+
     @IBOutlet weak var leftDiceImageView: UIImageView!
     @IBOutlet weak var rightDiceImageView: UIImageView!
 
@@ -15,8 +19,8 @@ class ViewController: UIViewController {
     }
 
     func getRandomDiceImage() -> UIImage? {
-        let randomNumber: Int = Int.random(in: 1 ... 6)
-        let diceImageName: String = "dice\(randomNumber)"
+        let randomDiceNumber: Int = Int.random(in: START_DOMINO_NUMBER ... LAST_DOMINO_NUMBER)
+        let diceImageName: String = DICE_IMAGE_NAME_PREFIX + String(randomDiceNumber)
         return UIImage(named: diceImageName)
     }
 }
