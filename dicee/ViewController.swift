@@ -5,6 +5,8 @@ class ViewController: UIViewController {
     let DICE_IMAGE_NAME_PREFIX: String = "dice"
     let START_DOMINO_NUMBER: Int = 1
     let LAST_DOMINO_NUMBER: Int = 6
+    let WAIT_TIME_100_MILLISECONDS = 100000
+    let TIMES_TO_BE_ROLLED = 5
 
     @IBOutlet weak var leftDiceImageView: UIImageView!
     @IBOutlet weak var rightDiceImageView: UIImageView!
@@ -12,32 +14,39 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        rollDices()
+        self.updateToRandomDicesNumberImage()
     }
 
     @IBAction func onRollButtonPressed(_ sender: UIButton) {
-        let ms = 100000
-        var counter = 1
         self.rollButton.isEnabled = false
+        self.rollDices()
+    }
+
+    func rollDices() {
         DispatchQueue.global(qos: .default).async {
-            for _ in 0...5 {
-                DispatchQueue.main.async {
-                    self.rollDices()
-                }
-                usleep(useconds_t(ms * counter))
-                counter += 1
-            }
+            self.generateDicesRollingAnimation()
             DispatchQueue.main.async {
                 self.rollButton.isEnabled = true
             }
         }
     }
 
-    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        rollDices()
+    func generateDicesRollingAnimation() {
+        var timesRolled = 1
+        for _ in 0...self.TIMES_TO_BE_ROLLED {
+            DispatchQueue.main.async {
+                self.updateToRandomDicesNumberImage()
+            }
+            usleep(useconds_t(self.WAIT_TIME_100_MILLISECONDS * timesRolled))
+            timesRolled += 1
+        }
     }
 
-    func rollDices() {
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        updateToRandomDicesNumberImage()
+    }
+
+    func updateToRandomDicesNumberImage() {
         leftDiceImageView.image = getRandomDiceImage()
         rightDiceImageView.image = getRandomDiceImage()
     }
