@@ -18,8 +18,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onRollButtonPressed(_ sender: UIButton) {
-        self.rollButton.isEnabled = false
-        self.rollButton.backgroundColor = UIColor.gray
+        disableRollButton()
         self.rollDices()
     }
 
@@ -27,10 +26,19 @@ class ViewController: UIViewController {
         DispatchQueue.global(qos: .default).async {
             self.generateDicesRollingAnimation()
             DispatchQueue.main.async {
-                self.rollButton.isEnabled = true
-                self.rollButton.backgroundColor = UIColor.init(named: "Salmon")
+                self.enableRollButton()
             }
         }
+    }
+
+    private func disableRollButton() {
+        self.rollButton.isEnabled = false
+        self.rollButton.backgroundColor = UIColor.gray
+    }
+
+    private func enableRollButton() {
+        self.rollButton.isEnabled = true
+        self.rollButton.backgroundColor = UIColor.init(named: "Salmon")
     }
 
     func generateDicesRollingAnimation() {
@@ -44,8 +52,9 @@ class ViewController: UIViewController {
         }
     }
 
-    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        updateToRandomDicesNumberImage()
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        disableRollButton()
+        rollDices()
     }
 
     func updateToRandomDicesNumberImage() {
